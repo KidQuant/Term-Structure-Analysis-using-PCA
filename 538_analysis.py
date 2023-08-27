@@ -128,3 +128,23 @@ custom_scatter(x='Races Called Correctly',
 custom_scatter(x='Numeric grade',
                 y='Simple Average Error',
                 pos=(0,20))
+
+df.columns
+
+df_2 = df.dropna()
+filtered = df_2[df_2['Polls Analyzed']>100]
+custom_scatter(x = 'Polls Analyzed',
+                y='Partisan Bias Degree',
+                data=filtered, regeqn=False)
+
+x = df_2['Polls Analyzed']
+y = df_2['Partisan Bias Degree']
+
+plt.scatter(x,y, color = 'yellow', edgecolor='k', s=100)
+
+def func(x, a, b, c):
+    return a * np.exp(-b *0.1*x) + c
+popt, pcov = curve_fit(func, x, y)
+y_fit = func(x,popt[0],popt[1],popt[2])
+plt.scatter(x,y_fit,color='red',alpha=0.5)
+plt.show()
